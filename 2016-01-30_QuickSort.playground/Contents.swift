@@ -2,33 +2,42 @@
 
 import UIKit
 
-func quickSort(inout arr: [Int], first: Int, last: Int) {
+func quickSort(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
     
     // base case
-    
+    if lastIdx - firstIdx <= 1 {
+        
+        return
+    }
     
     // partition
+    
+    let splitPoint = partition(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
+    
     // quickSort on leftHalf
+    quickSort(&arr, firstIdx: firstIdx, lastIdx: splitPoint - 1)
+    
     // quickSort on rightHalf
+    quickSort(&arr, firstIdx: splitPoint + 1, lastIdx: lastIdx)
 }
 
 
 func quickSort(inout arr: [Int]) {
-    quickSort(&arr, first: 0, last: arr.count-1)
+    quickSort(&arr, firstIdx: 0, lastIdx: arr.count-1)
 }
 
-func partition(inout arr: [Int], first: Int, last: Int) -> Int {
+func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
     
     // set pivotValue to firstElement
     
-    let pivot = arr[0]
+    let pivot = arr[firstIdx]
     
     // set leftMark
-    var leftMarker = first + 1
+    var leftMarker = firstIdx + 1
     print("LeftMarker: \(leftMarker)")
     
     // set rightMark
-    var rightMarker = last
+    var rightMarker = lastIdx
     print("RightMarker: \(rightMarker)")
     
     /*
@@ -64,11 +73,17 @@ func partition(inout arr: [Int], first: Int, last: Int) -> Int {
     }
  
     // set the correct value at the splitPoint
-    swap(&arr[rightMarker], &arr[first])
-    print("kindaSortedArr: \(arr)")
+    // check that values are not the same
+    if arr[rightMarker] != arr[firstIdx] {
+     
+        swap(&arr[rightMarker], &arr[firstIdx])
+        print("kindaSortedArr: \(arr)")
+        
+    }
     
     return rightMarker  // return the splitPoint
 }
 
 var arr = [22, 59, 38, 93, 95, 0, 34, 58, 72, 15]
-partition(&arr, first: 0, last: arr.count-1)
+//partition(&arr, first: 0, last: arr.count-1)
+quickSort(&arr)

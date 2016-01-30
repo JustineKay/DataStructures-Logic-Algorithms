@@ -223,3 +223,145 @@ struct QueueStack<T> {
     - swap with first element
     - run quicksort!
 */
+
+
+func quickSortWithMedianPivot(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
+    
+    // base case
+    if firstIdx >= lastIdx {
+        
+        return
+    }
+    
+    if lastIdx - firstIdx > lastIdx {
+        
+        findMedian(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
+        
+    }
+    
+    // partition
+    
+    let splitPoint = partition(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
+    
+    // quickSort on leftHalf
+    quickSort(&arr, firstIdx: firstIdx, lastIdx: splitPoint - 1)
+    
+    // quickSort on rightHalf
+    quickSort(&arr, firstIdx: splitPoint + 1, lastIdx: lastIdx)
+}
+
+
+func findMedian(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> [Int] {
+    
+    let firstPoint = arr[firstIdx]
+    let lastPoint = arr[lastIdx]
+    let midPoint = arr[arr.count / 2]
+    
+    var medianArr = [firstPoint, lastPoint, midPoint]
+    
+    for i in 0..<medianArr.count-1 {
+        
+        if medianArr[i] < medianArr[i + 1] {
+            
+            swap(&medianArr[i], &medianArr[i + 1])
+        }
+        
+        if medianArr[i] > medianArr[medianArr.count-1] {
+            
+            swap(&medianArr[i], &medianArr[medianArr.count-1])
+            
+        }
+        
+    }
+    
+    let median = medianArr[1]
+    print("median: \(median)")
+    
+    if median == arr[lastIdx]{
+        
+        swap(&arr[firstIdx], &arr[lastIdx])
+        
+    }else if median == arr[arr.count/2]{
+        
+        swap(&arr[arr.count/2], &arr[firstIdx])
+    }
+    
+    
+    return arr
+}
+
+var arr2 = [22, 59, 38, 93, 95, 0, 34, 58, 72, 15]
+//findMedian(&arr2, firstIdx: 0, lastIdx: arr2.count-1)
+
+func quickSortWithMedian(inout arr: [Int]) {
+    quickSortWithMedianPivot(&arr, firstIdx: 0, lastIdx: arr.count-1)
+}
+
+quickSortWithMedian(&arr2)
+
+//***********Median and Insertion Sort***************
+/*
+Add in the code to run insertion sort when the length of the subarray is less than 10
+*/
+
+func quickSortWithMedianAndInsertion(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
+    
+    // base case
+    if firstIdx >= lastIdx {
+        
+        return
+    }
+    
+    if arr.count > 10 {
+        
+        findMedian(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
+        
+    }else {
+        
+        //use insertion sort
+    }
+    
+    // partition
+    
+    let splitPoint = partition(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
+    
+    // quickSort on leftHalf
+    quickSort(&arr, firstIdx: firstIdx, lastIdx: splitPoint - 1)
+    
+    // quickSort on rightHalf
+    quickSort(&arr, firstIdx: splitPoint + 1, lastIdx: lastIdx)
+}
+
+
+func insertionSort(inout values: [Int])
+{
+    
+    func insertHelper(inout values: [Int], index: Int) {
+        
+        if index < values.count - 1 {
+            
+            let lastIndex = values.removeLast()
+            print("last index: \(lastIndex)")
+            
+            if lastIndex < values[index] {
+                
+                values.insert(lastIndex, atIndex: index)
+                print("newValues: \(values)")
+                
+                insertHelper(&values, index: 0)
+                
+            }else {
+                
+                values.append(lastIndex)
+                insertHelper(&values, index: index + 1)
+            }
+            
+            
+        }
+    }
+    
+    insertHelper(&values, index: 0)
+    
+}
+
+

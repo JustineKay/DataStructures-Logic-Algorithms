@@ -5,7 +5,7 @@ import UIKit
 func quickSort(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
     
     // base case
-    if lastIdx - firstIdx <= 1 {
+    if firstIdx >= lastIdx {
         
         return
     }
@@ -46,7 +46,7 @@ func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
     on the left side with the items that are less than the pivot
     value on the right side. Stop when rightMark crosses leftMark
     */
-    while rightMarker > leftMarker {
+    while rightMarker >= leftMarker {
         
 //        print("LeftMarker: \(leftMarker)")
 //        print("RightMarker: \(rightMarker)")
@@ -68,6 +68,7 @@ func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
             
             swap(&arr[rightMarker], &arr[leftMarker])
             print("SWAP: \(arr[rightMarker], arr[leftMarker])")
+            print("NewlySwappedArr: \(arr)")
             
         }
     }

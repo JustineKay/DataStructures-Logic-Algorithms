@@ -88,3 +88,138 @@ func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
 var arr = [22, 59, 38, 93, 95, 0, 34, 58, 72, 15]
 //partition(&arr, first: 0, last: arr.count-1)
 quickSort(&arr)
+
+
+
+//************Create a STACK**************
+
+struct Stack<T> {
+    
+    var items: [T]
+    
+    //push
+    mutating func push(element: T) {
+        items.append(element)
+    }
+    
+    //pop
+    mutating func pop() -> T? {
+        
+        if items.count == 0 {
+            
+            return nil
+        }
+        
+        return items.removeLast()
+    }
+    
+    //peek
+    func peek() -> T? {
+        
+        return items.last
+    }
+    
+    //size
+    func size() -> Int {
+        
+        return items.count
+    }
+
+    //Computed property
+//    var size: Int {
+//        
+//        return items.count
+//    }
+}
+
+//************Create a QUEUE**********
+
+struct Queue<T> {
+    var items: [T]
+    
+    //enqueue
+    mutating func enqueue(element: T) {
+        
+        items.append(element)
+    }
+    
+    //dequeue
+    mutating func dequeue() -> T? {
+        
+        if items.count == 0 {
+            
+            return nil
+        }
+        
+        return items.removeFirst()
+    }
+    
+    //size
+    func size() -> Int {
+        
+        return items.count
+    }
+}
+
+
+
+//*********Create a STACK from a QUEUE************
+
+struct QueueStack<T> {
+    
+    var items: Queue<T>
+    
+    //push
+    mutating func push(element: T) {
+        items.enqueue(element)
+    }
+    
+    //pop
+    mutating func pop() -> T? {
+        
+        if items.size() <= 0 {
+            
+            return nil
+        }
+        
+        for _ in 0..<items.size()-1 {
+            
+            let x = items.dequeue()
+            items.enqueue(x!)
+        }
+        
+        return items.dequeue()
+    }
+    
+    //peek
+    mutating func peek() -> T? {
+        
+        if items.size() <= 0 {return nil}
+        for _ in 0..<items.size()-1 {
+            
+            let x = items.dequeue()
+            items.enqueue(x!)
+        }
+        
+        let peek = items.dequeue()
+        items.enqueue(peek!)
+
+        return peek
+    }
+    
+    //size
+    func size() -> Int {
+        
+        return items.size()
+    }
+    
+}
+
+
+//***************EXERCISES*****************
+
+/*Implement quicksort with the median pivot selection technique.
+    - write median pivot selection function
+    - swap with first element
+    - run quicksort!
+*/

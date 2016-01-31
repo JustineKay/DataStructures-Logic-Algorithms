@@ -268,31 +268,7 @@ dict.description
 print(dict.elements.filter{$0 != nil})
 
 
-
 func spellCheck(str: String) -> Bool
-{
-
-    let strWords = str.characters.split{$0 == " "}.map(String.init)
-    
-    for word in strWords {
-        
-        //print(word)
-        
-        if dict.contains(word) {
-            
-           continue
-            
-        }else {
-            
-            return false
-        }
-    }
-    
-    return true
-}
-
-
-func spellCheck2(str: String) -> Bool
 {
     
     let strWords = str.characters.split{$0 == " "}.map(String.init)
@@ -391,36 +367,50 @@ abs("sweet".hashValue % 32)
 
 struct OpenHashSet: SetProtocol, CustomStringConvertible {
     
-    private var elements = [String?]()
+    private var elements: [String?]
     
-    init (capacity: Int) {
+    init(capacity: Int) {
         
         elements = [String?](count: capacity, repeatedValue: nil)
     }
     
-    //SetProtocol
-    
+    // SetProtocol
     typealias ItemType = String
     
     mutating func add(item: String) {
         
         let hashValue = hash(item)
         
-        if contains(item) {return}
+        if (contains(item)) { return }
         
         for i in 0..<elements.count {
             
-            if elements[(hashValue + i) % elements.count] == nil {
+            if (elements[(hashValue + i) % elements.count] == nil) {
                 
                 elements[(hashValue + i) % elements.count] = item
+                
+                return
             }
         }
         
+        print("Out of room!")
     }
     
     mutating func remove(item: String) {
         
-        elements[hash(item)] = nil
+        let hashValue = hash(item)
+        
+        if !contains(item) {return}
+        
+        for i in 0..<elements.count {
+            
+            if elements[(hashValue + i) % elements.count] == item {
+                
+                elements.removeAtIndex((hashValue + i) % elements.count)
+                
+            }
+        }
+        
     }
     
     func contains(item: String) -> Bool {
@@ -431,12 +421,11 @@ struct OpenHashSet: SetProtocol, CustomStringConvertible {
             
             if let element = elements[(hashValue + i) % elements.count] {
                 
-                if element == item {
-                    
+                if (element == item) {
                     return true
                 }
-                
-            }else {
+            
+            } else {
                 
                 return false
             }
@@ -445,13 +434,116 @@ struct OpenHashSet: SetProtocol, CustomStringConvertible {
         return false
     }
     
-    //Custom String Convertible
-    
+    // CustomStringConvertible
     var description: String {
-        
+    
         return "{\(elements.filter{$0 != nil}.map{$0!})}"
         
     }
     
 }
 
+var genres2 = OpenHashSet(capacity: 16)
+
+genres2.add("Pop")
+genres2.add("Pop")
+genres2.add("Rock")
+genres2.add("R&B")
+genres2.add("Funk")
+
+genres2.contains("Rock")
+genres2.contains("Western")
+
+genres2.remove("Pop")
+genres2.contains("Pop")
+
+
+
+
+//****************MAPS**********************
+
+protocol MapProtocol {
+    typealias KeyType
+    typealias ValueType
+    subscript(k: KeyType) -> ValueType? {get set}
+    mutating func remove(k: KeyType)
+}
+
+
+// An array of elements where each element is
+//    An array of elements where each element is
+//        A tuple of K, V
+
+
+struct HashMap<K: Hashable, V>: MapProtocol , CustomStringConvertible {
+    
+    var table: [[(K, V)]]
+    
+    init(capacity: Int = 8) {
+        
+        table = [[(K,V)]](count: capacity, repeatedValue: [])
+    }
+    //Map protocol
+    
+    typealias KeyType = K
+    typealias ValueType = V
+    
+    subscript(k: K) -> V? {
+        
+        get {
+            let hashValue = abs(k.hashValue % table.count)
+            for item in table[hashValue] {
+                
+                if (item.0 == k) {
+                    
+                    return item.1
+                }
+            }
+            return nil
+        }
+        set (v){
+            
+            let hashValue = abs(k.hashValue % table.count)
+            table[hashValue].append((k,v!))
+        }
+    }
+    
+    mutating func remove(k: K) {
+        
+        let hashValue = abs(k.hashValue % table.count)
+        
+        if let idx = table[hashValue].indexOf({$0.0 == k}) {
+            
+            table[hashValue].removeAtIndex(idx)
+        }
+        
+    }
+    
+    //Custom String Convertible
+    
+    var description: String {
+        
+        var str = ""
+        
+        for entry in table {
+            str += "\(entry)"
+            str += "\n"
+        }
+        
+        return str    }
+}
+
+
+var nicknames = HashMap<String, String>()
+
+nicknames["Michael"] = "Mike"
+nicknames["Barbara"] = "Babs"
+nicknames["Janet"] = "Jenny"
+nicknames["Matthew"] = "Matt"
+nicknames["Fredrick"] = "Fred"
+print(nicknames)
+
+nicknames["Michael"]
+
+nicknames.remove("Michael")
+nicknames["Michael"]

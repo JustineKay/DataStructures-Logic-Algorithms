@@ -2,13 +2,13 @@
 
 import UIKit
 
-class Node {
+class Node<T: Comparable> {
     
     var left: Node?
     var right: Node?
-    let symbol: String
+    let symbol: T
     
-    init(symbol: String) {
+    init(symbol: T) {
         
         self.symbol = symbol
     }
@@ -91,3 +91,9 @@ f.right = g
 
 
 d.printPostorder()
+print("d tree postOrder^^^")
+d.printInorder()
+print("d tree in order ^^^")
+
+
+let x = Node(symbol: 1)

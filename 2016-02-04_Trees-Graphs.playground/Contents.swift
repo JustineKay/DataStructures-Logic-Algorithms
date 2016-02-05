@@ -37,10 +37,30 @@ extension Node {
     
     func insert(symbol: T) {
         
-        
+        if symbol < self.symbol {
+            
+            if left == nil {
+               
+                left = Node(symbol: symbol)
+            
+            } else {
+            
+                left?.insert(symbol)
+            }
+            
+        } else {
+            
+            if right == nil {
+            
+                right = Node(symbol: symbol)
+            
+            } else {
+            
+                right?.insert(symbol)
+            }
+        }
     }
 }
-
 
 //Printing
 extension Node {
@@ -114,24 +134,44 @@ let g = Node(symbol: "g")
 
 
 
-d.left = b
+//d.left = b
+//
+//b.left = a
+//b.right = c
+//
+//d.right = f
+//
+//f.left = e
+//f.right = g
 
-b.left = a
-b.right = c
+d.insert("b")
+d.insert("a")
+d.insert("c")
+d.insert("f")
+d.insert("e")
+d.insert("g")
 
-d.right = f
-
-f.left = e
-f.right = g
-
-
+d.printPreorder()
+print("d tree preOrder ^^^")
 d.printPostorder()
-print("d tree postOrder^^^")
+print("d tree postOrder ^^^")
 d.printInorder()
-print("d tree in order ^^^")
+print("d tree inOrder ^^^")
 
 
 let x = Node(symbol: 1)
 
 
 d.find("e")
+
+
+/*
+
+Binary Tree: Tree with max 2 child nodes per node
+Binary Search Tree: Binary tree where every thing the to left is less than the root node or it's parent, everything to the right is greater than the root node or it's parent.
+
+Trees are graphs, but graphs are not trees.
+Trees are a subset of graphs.
+Trees are graphs that do not have more than one way to get back to the root node.
+
+*/

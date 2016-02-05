@@ -14,6 +14,35 @@ class Node<T: Comparable> {
     }
 }
 
+
+//BST methods
+extension Node {
+    
+    func find(symbol: T)  -> Node? {
+        
+        if self.symbol == symbol {
+            
+            return self
+        }
+        
+        if symbol < self.symbol {
+            
+            return left?.find(symbol)
+            
+        }else {
+            
+            return right?.find(symbol)
+        }
+    }
+    
+    func insert(symbol: T) {
+        
+        
+    }
+}
+
+
+//Printing
 extension Node {
     
     func printInorder() {
@@ -72,12 +101,18 @@ root.printPostorder()
 
 */
 let a = Node(symbol: "a")
+
+a.find("a")
+a.find("z")
+
 let b = Node(symbol: "b")
 let c = Node(symbol: "c")
 let d = Node(symbol: "d")
 let e = Node(symbol: "e")
 let f = Node(symbol: "f")
 let g = Node(symbol: "g")
+
+
 
 d.left = b
 
@@ -97,3 +132,6 @@ print("d tree in order ^^^")
 
 
 let x = Node(symbol: 1)
+
+
+d.find("e")

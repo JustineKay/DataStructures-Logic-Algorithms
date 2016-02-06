@@ -323,3 +323,53 @@ func printPathRecursive (endV:Vertex) {
 }
 
 shortestDistanceRecursivePrint(graph2, startingV: aA, endV: cC)
+
+
+//***********REcursion REview*************
+
+func addUpIter(num: Int) -> Int {
+    
+    var sum = 0
+    
+    for i in 1...num {
+        
+        sum += i
+    }
+    
+    return sum
+}
+
+func addUpRecursive(num:Int) -> Int {
+    
+    if num == 0 {
+        
+        return 0
+    }
+
+    return num + addUpRecursive(num - 1)
+}
+addUpIter(5)
+addUpRecursive(5)
+
+
+func factorial(num: Int) -> Int {
+    
+    var ans = 1
+    for var n = 1; n<=num; n++ {
+        
+        ans*=n
+    }
+    return ans
+}
+
+func factorialREcursive(num: Int) -> Int {
+    
+    if num == 1 {return 1}
+    
+    
+    
+    return num * factorialREcursive(num - 1)
+}
+
+factorial(3)
+factorial(3)

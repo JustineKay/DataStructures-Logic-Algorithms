@@ -32,50 +32,175 @@ print(cl.val)
 
 //**********GRAPHS*************
 
-struct Vertex {
+//**As Structs***
+
+struct VertexS {
     
     var symbol = String()
     
 }
 
-struct Edge {
+struct EdgeS {
     
-    let pairOfVertices: (Vertex, Vertex)
+    let pairOfVertices: (VertexS, VertexS)
     let weight = Int()
     
 }
 
-struct Graph {
+struct GraphS {
     
-    var vertices = [Vertex]()
-    var edges = [Edge]()
+    var vertices = [VertexS]()
+    var edges = [EdgeS]()
     
 }
 
 
-var a = Vertex()
+var a = VertexS()
 a.symbol = "a"
 
-var b = Vertex()
+var b = VertexS()
 b.symbol = "b"
 
-var c = Vertex()
+var c = VertexS()
 c.symbol = "c"
 
-var d = Vertex()
+var d = VertexS()
 d.symbol = "d"
 
-var e = Vertex()
+var e = VertexS()
 e.symbol = "e"
 
-var edgeAB = Edge(pairOfVertices: (a,b))
-var edgeAD = Edge(pairOfVertices: (a,d))
-var edgeAE = Edge(pairOfVertices: (a,e))
-var edgeEC = Edge(pairOfVertices: (e,c))
-var edgeCD = Edge(pairOfVertices: (c,d))
+var edgeAB = EdgeS(pairOfVertices: (a,b))
+var edgeAD = EdgeS(pairOfVertices: (a,d))
+var edgeAE = EdgeS(pairOfVertices: (a,e))
+var edgeEC = EdgeS(pairOfVertices: (e,c))
+var edgeCD = EdgeS(pairOfVertices: (c,d))
 
-var graph1 = Graph()
+var graph1 = GraphS()
 graph1.vertices = [a,b,c,b,e]
 graph1.edges = [edgeAB, edgeAD, edgeAE, edgeEC, edgeCD]
 
+
+
+//***As Classes***
+
+enum State {
+    
+    case Undiscovered
+    case Discovered
+    case Finished
+}
+
+class Vertex {
+    var name: String
+    var state: State
+    
+    init(name: String) {
+        self.name = name
+        self.state = .Undiscovered
+    }
+}
+
+class Edge {
+    var vertices: (Vertex, Vertex)
+    
+    init(vertex1: Vertex, vertex2: Vertex) {
+        
+        self.vertices = (vertex1, vertex2)
+    }
+    
+    func contains(vertex: Vertex) -> Bool {
+        
+        return vertices.0 == vertex || vertices.1 == vertex
+    }
+    
+    func getVertexPairFor(vertex vertex: Vertex) -> Vertex? {
+        
+        if vertex == vertices.0 {
+            
+            return vertices.1
+        }
+        
+        if vertex == vertices.1 {
+            
+            return vertices.0
+        }
+        
+        return nil
+    }
+}
+
+
+func ==(lhs: Vertex, rhs: Vertex) -> Bool {
+    return lhs.name == rhs.name
+}
+
+
+class Graph {
+    var vertices: [Vertex]
+    var edges: [Edge]
+    
+    init(vertices: [Vertex], edges: [Edge]) {
+        self.vertices = vertices
+        self.edges = edges
+    }
+}
+
+
+var aA = Vertex(name: "A")
+var bB = Vertex(name: "B")
+var cC = Vertex(name: "C")
+var dD = Vertex(name: "D")
+var eE = Vertex(name: "E")
+
+var AB = Edge(vertex1: aA, vertex2: bB)
+var AD = Edge(vertex1: aA, vertex2: dD)
+var AE = Edge(vertex1: aA, vertex2: eE)
+var EC = Edge(vertex1: eE, vertex2: cC)
+var CD = Edge(vertex1: cC, vertex2: dD)
+
+var graph2 = Graph(vertices: [aA, bB, cC, dD, eE], edges: [AB, AD, AE, EC, CD])
+
+//BFS
+//1. enqueue starting point
+//2. mark starting point as discovered
+//3. enqueue all adjacent vertices that are undiscovered
+//4. mark enqueued vertices as discovered
+//5. dequeue and mark as finished
+//6. go to next item in queue, if queue is not empty
+
+func printAllVertices(graph: Graph, startingVertex: Vertex) {
+    
+    var vQue = [Vertex]()
+    
+    vQue.append(startingVertex)
+    startingVertex.state = .Discovered
+    
+    while !vQue.isEmpty {
+        
+        let v = vQue.removeFirst()
+        
+        for edge in graph.edges {
+            
+            if edge.contains(v) {
+                
+                let edgeV = edge.getVertexPairFor(vertex: v)!
+                
+                if edgeV.state == .Undiscovered {
+                    
+                    vQue.append(edgeV)
+                    edgeV.state = .Discovered
+                }
+            }
+        }
+        
+        print(v.name)
+        v.state = .Finished
+        
+    }
+    
+    
+}
+
+printAllVertices(graph2, startingVertex: aA)
 

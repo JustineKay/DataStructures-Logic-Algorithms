@@ -172,6 +172,9 @@ var graph2 = Graph(vertices: [aA, bB, cC, dD, eE], edges: [AB, AD, AE, EC, CD])
 //5. dequeue and mark as finished
 //6. go to next item in queue, if queue is not empty
 
+
+//*****************PRINT VERTICES***************************
+
 func printAllVertices(graph: Graph, startingVertex: Vertex) {
     
     var vQue = [Vertex]()
@@ -204,6 +207,10 @@ func printAllVertices(graph: Graph, startingVertex: Vertex) {
 }
 
 //printAllVertices(graph2, startingVertex: aA)
+
+
+
+//****************SHORTEST DISTANCE**************************
 
 func shortestDistance(graph: Graph, startingV: Vertex, endV: Vertex) {
     
@@ -257,4 +264,62 @@ func printReversePath (endV:Vertex) {
 
 }
 
-shortestDistance(graph2, startingV: aA, endV: cC)
+//shortestDistance(graph2, startingV: aA, endV: cC)
+
+
+//*************SHORTEST DISTANCE WITH RECURSIVE PRINT FUNC FOR PATH*******************
+
+func shortestDistanceRecursivePrint (graph: Graph, startingV: Vertex, endV: Vertex) {
+    
+    var vQue = [Vertex]()
+    
+    vQue.append(startingV)
+    startingV.state = .Discovered
+    
+    while !vQue.isEmpty {
+        
+        let v = vQue.removeFirst()
+        
+        if v == endV {
+            
+            break
+        }
+        
+        for edge in graph.edges {
+            
+            if edge.contains(v) {
+                
+                let edgeV = edge.getVertexPairFor(vertex: v)!
+                
+                if edgeV.state == .Undiscovered {
+                    
+                    vQue.append(edgeV)
+                    edgeV.currentDistance = v.currentDistance + 1
+                    edgeV.prevVertex = v
+                    edgeV.state = .Discovered
+                }
+            }
+        }
+        
+        print("\(v.name),\(v.currentDistance)")
+        v.state = .Finished
+    }
+    
+    printPathRecursive(endV)
+}
+
+
+func printPathRecursive (endV:Vertex) {
+    
+    if endV.prevVertex == nil {
+        
+        print(endV.name)
+        return
+    }
+    
+    printPathRecursive(endV.prevVertex!)
+    
+    print(endV.name)
+}
+
+shortestDistanceRecursivePrint(graph2, startingV: aA, endV: cC)

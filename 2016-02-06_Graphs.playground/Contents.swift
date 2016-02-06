@@ -94,10 +94,13 @@ enum State {
 class Vertex {
     var name: String
     var state: State
+    var prevVertex: Vertex?
+    var currentDistance: Int
     
     init(name: String) {
         self.name = name
         self.state = .Undiscovered
+        self.currentDistance = 0
     }
 }
 
@@ -196,11 +199,62 @@ func printAllVertices(graph: Graph, startingVertex: Vertex) {
         
         print(v.name)
         v.state = .Finished
-        
     }
-    
-    
+   
 }
 
-printAllVertices(graph2, startingVertex: aA)
+//printAllVertices(graph2, startingVertex: aA)
 
+func shortestDistance(graph: Graph, startingV: Vertex, endV: Vertex) {
+    
+    var vQue = [Vertex]()
+    
+    vQue.append(startingV)
+    startingV.state = .Discovered
+    
+    while !vQue.isEmpty {
+        
+        let v = vQue.removeFirst()
+        
+        if v == endV {
+            
+            break
+        }
+        
+        for edge in graph.edges {
+            
+            if edge.contains(v) {
+                
+                let edgeV = edge.getVertexPairFor(vertex: v)!
+                
+                if edgeV.state == .Undiscovered {
+                    
+                    vQue.append(edgeV)
+                    edgeV.currentDistance = v.currentDistance + 1
+                    edgeV.prevVertex = v
+                    edgeV.state = .Discovered
+                }
+            }
+        }
+        
+        print("\(v.name),\(v.currentDistance)")
+        v.state = .Finished
+    }
+    
+    printReversePath(endV)
+}
+
+func printReversePath (endV:Vertex) {
+    
+    var v = endV
+    print(v.name)
+    
+    while v.prevVertex != nil {
+        
+        print(v.prevVertex?.name)
+        v = v.prevVertex!
+    }
+
+}
+
+shortestDistance(graph2, startingV: aA, endV: cC)

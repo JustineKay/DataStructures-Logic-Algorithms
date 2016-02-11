@@ -91,7 +91,7 @@ enum State {
     case Finished
 }
 
-class Vertex {
+class Vertex: Hashable {
     var name: String
     var state: State
     var prevVertex: Vertex?
@@ -101,6 +101,13 @@ class Vertex {
         self.name = name
         self.state = .Undiscovered
         self.currentDistance = 0
+    }
+    
+    var hashValue: Int {
+        get {
+            
+            return name.hashValue
+        }
     }
 }
 
@@ -208,6 +215,44 @@ func printAllVertices(graph: Graph, startingVertex: Vertex) {
 
 //printAllVertices(graph2, startingVertex: aA)
 
+
+//*********ADJACENCY LIST************
+
+func adjacencyList(graph: Graph) -> Dictionary<String,[String]> {
+    
+    var adjList: [String:[String]] = [:]
+    
+    for vertex in graph.vertices {
+        
+        for edge in graph.edges {
+            
+            if edge.contains(vertex) {
+                
+                let adj = edge.getVertexPairFor(vertex: vertex)
+                
+                if adjList[vertex.name] == nil {
+                    
+                    var adjArr = [String]()
+                    adjArr.append(adj!.name)
+                    adjList[vertex.name] = adjArr
+                    
+                } else {
+                    
+                    var adjArr = adjList[vertex.name]
+                    adjArr?.append((adj?.name)!)
+                    
+                    adjList[vertex.name] = adjArr
+                }
+            }
+        }
+        
+    }
+    
+    
+    return adjList
+}
+
+print(adjacencyList(graph2))
 
 
 //****************SHORTEST DISTANCE**************************
@@ -322,7 +367,7 @@ func printPathRecursive (endV:Vertex) {
     print(endV.name)
 }
 
-shortestDistanceRecursivePrint(graph2, startingV: aA, endV: cC)
+//shortestDistanceRecursivePrint(graph2, startingV: aA, endV: cC)
 
 
 //***********REcursion REview*************

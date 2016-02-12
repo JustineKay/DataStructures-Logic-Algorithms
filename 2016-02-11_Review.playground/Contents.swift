@@ -214,3 +214,65 @@ func insertionSort<T: Comparable>(inout values: [T]){
 
 var values = [4, 2, 5, 2, 1]
 insertionSort(&values)
+
+
+//************Quick Sort**************
+
+func quickSort<T: Comparable>(inout values: [T], lo: Int, hi: Int) {
+    
+    let p = quickSortPartition(&values, lo: 0, hi: values.count - 1)
+    
+    quickSort(&values, lo: lo, hi: p - 1)
+    quickSort(&values, lo: p + 1, hi: hi)
+}
+
+func quickSortPartition<T: Comparable>(inout values: [T], lo: Int, hi: Int) -> Int {
+    
+    let pivot = values[hi]
+    var i = lo
+    
+    for j in lo..<hi {
+        
+        if values[j] <= pivot {
+            
+            swap(&values[i], &values[j])
+            
+            i += 1
+        }
+    }
+    
+    swap(&values[i], &values[hi])
+    
+    return i
+}
+
+//CORRECT IMPLEMENTATION
+//func quicksortCam<T: Comparable>(inout values: [T], lo: Int, hi: Int) {
+//    if lo < hi {
+//        let p = partition(&values, lo: lo, hi: hi)
+//        quicksortCam(&values, lo: lo, hi: p - 1)
+//        quicksortCam(&values, lo: p + 1, hi: hi)
+//    }
+//}
+//
+//func partition<T: Comparable>(inout values: [T], lo: Int, hi: Int) -> Int {
+//    let pivot = values[hi]
+//    var i = lo
+//    for j in lo..<hi {
+//        if values[j] <= pivot {
+//            if i != j {
+//                swap(&values[i], &values[j])
+//            }
+//            i += 1
+//        }
+//    }
+//    if i != hi {
+//        swap(&values[i], &values[hi])
+//    }
+//    return i
+//}
+//
+//var values3 = [1, 5, 2, 1, 5, 6]
+//quicksortCam(&values3, lo: 0, hi: values.count - 1)
+
+var values2 = [1, 5, 2, 7, 6, 4, 3]

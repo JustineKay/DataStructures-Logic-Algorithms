@@ -122,3 +122,7 @@ let nextConnectedNodes = graph[next]
 
 //start.next...
 
+
+
+var arr = [1, 2, 3]
+arr.insert(4, atIndex: 0)

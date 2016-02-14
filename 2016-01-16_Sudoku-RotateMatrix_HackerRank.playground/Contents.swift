@@ -32,7 +32,7 @@ bubbleSort(arr)
 
 func swap(inout arr: [Int], idx1: Int, idx2: Int) {
     
-    var temp = arr[idx1]
+    let temp = arr[idx1]
     arr[idx1] = arr[idx2]
     arr[idx2] = temp
 }
@@ -399,7 +399,7 @@ var matrix =  [[1,2,3,4],
 
 func rotateMatrix90Degrees(inout grid: [[Int]]) ->[[Int]]
 {
-    var temp = Array(count: grid.count, repeatedValue: 0)
+    let temp = Array(count: grid.count, repeatedValue: 0)
     var tempGrid = Array(count: grid.count, repeatedValue:temp)
     
     let count = grid.count

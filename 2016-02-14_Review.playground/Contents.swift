@@ -174,6 +174,10 @@ func fizzBuzzTuples() {
 fizzBuzzTuples()
 
 
+//*****************************
+
+/*You are given an unsorted array containing the numbers 1-100 inclusive and one additional random number.  Find the value of that number
+*/
 
 func arrOf100() -> [Int]{
 
@@ -189,3 +193,51 @@ func arrOf100() -> [Int]{
 }
 
 var arr = arrOf100()
+
+let randomSet = Set(arr)
+print(randomSet)
+
+var shuffledArr = Array(randomSet)
+print(shuffledArr)
+
+shuffledArr.append(21)
+print(shuffledArr)
+
+
+func findDuplicateNum(arr: [Int]) -> Int {
+    
+    var numbers = Set<Int>()
+    var duplicateNum = Int()
+    
+    for num in arr {
+        
+        if !numbers.contains(num) {
+            
+            numbers.insert(num)
+            
+        }else {
+            
+            duplicateNum = num
+        }
+    }
+    
+    
+    return duplicateNum
+}
+
+findDuplicateNum(shuffledArr)
+
+
+//***********************************
+//Using the same arr of 100 inclusive #s
+//Add a random number over 100 and return it
+
+func findRandomNum(arr:[Int]) -> Int {
+ 
+    var result = Int()
+    
+    //sort array
+    //return last
+ 
+    return result
+}

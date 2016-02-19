@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvV-cO-hqL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiz-87-hFB">
+                                <rect key="frame" x="262" y="279" width="76" height="41"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xoE-Av-tEO">
+                                <rect key="frame" x="250" y="510" width="100" height="47"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
+                                <state key="normal" title="SwipeVC">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="s0T-f6-dhh" kind="presentation" id="yg6-ku-3Hx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WvV-cO-hqL" secondAttribute="bottom" id="ROy-4N-ZJD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xoE-Av-tEO" secondAttribute="bottom" constant="43" id="WCp-dg-8tm"/>
+                            <constraint firstItem="hiz-87-hFB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="X0K-ec-9Ja"/>
+                            <constraint firstItem="WvV-cO-hqL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ad2-w3-Zkw"/>
+                            <constraint firstAttribute="trailing" secondItem="WvV-cO-hqL" secondAttribute="trailing" id="i1A-lc-uIc"/>
+                            <constraint firstItem="WvV-cO-hqL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ohQ-xu-E2e"/>
+                            <constraint firstItem="xoE-Av-tEO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pfd-pX-t7B"/>
+                            <constraint firstItem="hiz-87-hFB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="vaA-no-had"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="WvV-cO-hqL" id="24I-33-mbh"/>
+                        <outlet property="timerLabel" destination="hiz-87-hFB" id="SJI-x8-q89"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="340" y="387"/>
+        </scene>
+        <!--Swipe View Controller-->
+        <scene sceneID="SCZ-Zo-TNr">
+            <objects>
+                <viewController id="s0T-f6-dhh" customClass="SwipeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="H5d-BM-dhQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="q7g-Kx-S2I"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AsF-iM-Fky">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UPs-Pt-cIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="991" y="387"/>
+        </scene>
+    </scenes>
+</document>

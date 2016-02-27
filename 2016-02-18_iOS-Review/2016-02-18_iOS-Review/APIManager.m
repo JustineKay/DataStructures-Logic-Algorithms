@@ -17,7 +17,7 @@
     
     [manager GET:@"http://api.open-notify.org/iss-now.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        //NSLog(@"Response Object: %@", responseObject);
+        NSLog(@"Response Object: %@", responseObject);
         
         NSDictionary *position = [responseObject objectForKey:@"iss_position"];
         double latitude = [position[@"latitude"]doubleValue];

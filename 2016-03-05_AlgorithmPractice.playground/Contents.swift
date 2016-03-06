@@ -11,6 +11,11 @@ import UIKit
 
 func anagram(strOne:String, strTwo:String) -> Bool
 {
+    if strOne.characters.count != strTwo.characters.count {
+        
+        return false
+    }
+    
     let strOneSet = Set<Character>(strOne.lowercaseString.characters)
     let strTwoSet = Set<Character>(strTwo.lowercaseString.characters)
     
@@ -24,11 +29,11 @@ func anagram(strOne:String, strTwo:String) -> Bool
 
 let word1 = "cinema"
 let word2 = "iceman"
-let heater = "heater"
-let reheat = "reheat"
+let word3 = "heater"
+let word4 = "reheat"
 
 anagram(word1, strTwo: word2)
-anagram(heater, strTwo: reheat)
+anagram(word3, strTwo: word4)
 
 func anagram2(str1:String, str2:String) -> Bool
 {
@@ -53,11 +58,65 @@ func anagram2(str1:String, str2:String) -> Bool
     return true
 }
 
-let word3 = "teacher"
-let word4 = "cheaters"
-let word5 = "beet"
-let word6 = "beat"
+let word5 = "teaches"
+let word6 = "cheats"
+let word7 = "beet"
+let word8 = "beat"
 
-anagram2(word3, str2: word4)
 anagram2(word5, str2: word6)
+anagram2(word7, str2: word8)
 
+
+/*
+Given a linked list, a starting index, and an ending index. How would you shift the index so that the data at the ending index ends up at the starting index? [Find Two Ways]
+*/
+
+//ex. x -> 3 -> x -> x -> x -> 10 -> x
+//         ^startingIdx         ^endingIdx
+
+
+//To reverse all data in between the two indices
+func reverseData(inout arr: [Int], startingIdx:Int, var endingIdx:Int) -> [Int]
+{
+    
+    for i in startingIdx...endingIdx/2 {
+        swap(&arr[i], &arr[endingIdx])
+        endingIdx--
+    }
+    
+    return arr
+}
+
+var arr1 = [2, 3, 56, 76, 34, 10, 2]
+reverseData(&arr1, startingIdx: 1, endingIdx: 5)
+
+func reverseData2(inout arr: [Int], startingIdx:Int, var endingIdx:Int) -> [Int]
+{
+    var reversedPortion = [Int]()
+    
+    while startingIdx < endingIdx {
+        
+        reversedPortion.append(arr[endingIdx])
+        arr.removeAtIndex(endingIdx)
+        endingIdx--
+        
+    }
+    
+    arr.insertContentsOf(reversedPortion, at: startingIdx)
+    
+    return arr
+}
+
+var arr2 = [2, 3, 56, 76, 34, 10, 2]
+reverseData2(&arr2, startingIdx: 1, endingIdx: 5)
+
+//To simply insert the ending idx at the starting idx
+func reInsert(inout arr:[Int], startingIdx:Int, endingIdx: Int) -> [Int]
+{
+    arr.insert(arr.removeAtIndex(endingIdx), atIndex: startingIdx)
+    
+    return arr
+}
+
+var arr3 = [2, 3, 56, 76, 34, 10, 2]
+reInsert(&arr3, startingIdx: 1, endingIdx: 5)

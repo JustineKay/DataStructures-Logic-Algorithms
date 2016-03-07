@@ -120,11 +120,12 @@ reInsert(&arr3, startingIdx: 1, endingIdx: 5)
 
 /*
 
-I give you a sorted array of ints and want you to return an array of Strings with the ranges so:
+Given a sorted array of ints, return an array of strings with the ranges.
 
-I give you: 1, 2, 3, 5, 6,  9, 12, 13, 14, 15
+Ex.
+Input: 1, 2, 3, 5, 6,  9, 12, 13, 14, 15
 
-You return: { " 1-3 ", " 5-6 ", " 9 ", " 12-15 " }
+Output: { " 1-3 ", " 5-6 ", " 9 ", " 12-15 " }
 
 */
 
@@ -186,10 +187,6 @@ func ranges(arr:[Int]) -> [String]{
             
         }
 
-        print(arr[i - 1])
-        print(arr[i] - 1)
-        print(range)
-        print(result)
     }
     
     return result

@@ -57,3 +57,33 @@ var example2 = ")(, ))(, ()), ()))(("
 
 isBalancedAndValid(example1)
 isBalancedAndValid(example2)
+
+
+/*
+Given a String, return a String without duplicates.
+*/
+
+func duplicatesRemoved(inout str:String) -> String {
+    
+    var result = [Character]()
+    var unsortedDuplicatesRemoved = Set<Character>()
+    
+    for char in str.characters{
+        
+        if !unsortedDuplicatesRemoved.contains(char){
+            
+            result.append(char)
+            unsortedDuplicatesRemoved.insert(char)
+        }
+        
+    }
+    
+    str = String(result)
+    
+    return str
+}
+
+var example3 = "Double Bubble"
+var example4 = "Watermelon"
+duplicatesRemoved(&example3)
+duplicatesRemoved(&example4)

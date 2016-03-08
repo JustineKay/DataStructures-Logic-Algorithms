@@ -67,11 +67,11 @@ t.isAlphanumeric
 
 func isPalindromeWithFilter(str:String) -> Bool {
     
-    //filteredArray = moneyArray.filter({$0 > 30}) where {$0 > 30}
+    let filteredString = str.lowercaseString.characters.filter{$0.isAlphanumeric}
     
     var characters = [Character]()
     
-    for character in str.lowercaseString.characters {
+    for character in filteredString {
         
         if character.isAlphanumeric {
             
